@@ -8,3 +8,27 @@ var hour3 = $("#15");
 var hour4 = $("#16");
 var hour5 = $("#17");
 var time = moment();
+
+function createPlanner() {
+
+    $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
+
+    $(".time-block").each(function () {
+        var id = $(this).attr("id");
+        var schedule = localStorage.getItem(id);
+
+        if (schedule !== null) {
+            $(this).children(".schedule").val(schedule);
+        }
+    });
+}
+createPlanner();
+
+var saveBtn = $(".saveBtn");
+
+saveBtn.on("click", function () {
+    var time = $(this).parent().attr("id");
+    var schedule = $(this).siblings(".schedule").val();
+
+    localStorage.setItem(time, schedule);
+});
